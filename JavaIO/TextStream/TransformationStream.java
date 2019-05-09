@@ -4,7 +4,7 @@ import java.io.*;
 
 public class TransformationStream {
     public static void MyOutputStreamWriter() {
-        File file = new File("D:\\下载\\MJY\\text.txt");
+        File file = new File("C:\\Users\\ANGOOO\\Documents\\javaidea\\JavaIO\\src\\Text1\\Text1.txt");
         if (!file.getParentFile().exists()) {
             boolean result = file.getParentFile().mkdirs();
             System.out.println("创建父目录：" + result);

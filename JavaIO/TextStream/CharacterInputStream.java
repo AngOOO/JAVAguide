@@ -7,7 +7,7 @@ import java.io.Reader;
 
 public class CharacterInputStream {
     public static void main(String[] args) {
-        File file = new File("D:\\下载\\MJY\\text.txt");
+        File file = new File("C:\\Users\\ANGOOO\\Documents\\javaidea\\JavaIO\\src\\Text1\\Text1.txt");
         if (file.exists()) {
             try {
                 Reader in = new FileReader(file);
