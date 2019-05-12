@@ -15,7 +15,7 @@ public class SingleClient {
         String host = "127.0.0.1";
         int port = 6666;
         try {//创建客户端，连接服务端
-            Socket socket = new Socket(host, port);
+            final Socket socket = new Socket(host, port);
             //客户端向服务端发送数据
             OutputStream out = socket.getOutputStream();
             PrintStream printStream = new PrintStream(out);
