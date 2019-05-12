@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 
 public class TextFile {
     public static void TextFile1() {
-        File file = new File("C:\\Users\\ANGOOO\\Documents\\javaidea\\JavaIO\\src\\Text.txt");
+        File file = new File("C:\\Users\\ANGOOO\\Documents\\javaidea\\JavaIO\\src\\TextSingleton.txt");
         boolean result = false;
         try {
             result = file.createNewFile();
@@ -24,7 +24,7 @@ public class TextFile {
     public static void TextFile2() {
         File file = new File("C:" + File.separator + "Users" + File.separator +
                 "ANGOOO" + File.separator + "Documents" + File.separator + "javaidea" + File.separator +
-                "JavaIO" + File.separator + "src" + File.separator + "Text.txt");
+                "JavaIO" + File.separator + "src" + File.separator + "TextSingleton.txt");
         if (file.exists()) {
             System.out.println("文件删除：" + file.delete());
         } else {
@@ -39,7 +39,7 @@ public class TextFile {
     public static void TextFile3() {
         File file = new File("C:" + File.separator + "Users" + File.separator +
                 "ANGOOO" + File.separator + "Documents" + File.separator + "javaidea" + File.separator +
-                "JavaIO" + File.separator + "src" + File.separator + "Text.txt");
+                "JavaIO" + File.separator + "src" + File.separator + "TextSingleton.txt");
         System.out.println("父路径：" + file.getParent());
         System.out.println("父文件：" + file.getParentFile());
         System.out.println("判断是否为目录：" + file.isDirectory());
@@ -50,7 +50,7 @@ public class TextFile {
 
         String path = "C:" + File.separator + "Users" + File.separator +
                 "ANGOOO" + File.separator + "Documents" + File.separator + "javaidea" + File.separator +
-                "JavaIO" + File.separator + "src" + File.separator + "Text";
+                "JavaIO" + File.separator + "src" + File.separator + "TextSingleton";
         File directory = new File(path);
         System.out.println("创建父目录：" + directory.mkdir());
         //mkdir  (如果父目录不存在，创建失败)
