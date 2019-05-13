@@ -13,6 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ClientHandler implements Runnable {
     private final Socket clientSocket;
+    private String currentName;
 
     public ClientHandler(Socket clientSocket) {
         this.clientSocket = clientSocket;
@@ -64,6 +65,7 @@ public class ClientHandler implements Runnable {
     }
 
     private void register(String name, Socket socket) throws IOException {
+        currentName = name;
         SOCKET_MAP.put(name, this.clientSocket);
         this.sentMessage(this.clientSocket, "恭喜<" + name + ">注册成功");
         printOnlineClient();
@@ -73,14 +75,14 @@ public class ClientHandler implements Runnable {
         //不包含自己
         //格式： sb:msg
         Set<Map.Entry<String, Socket>> entrySet = SOCKET_MAP.entrySet();
-        String currentName = "";
+        /*String currentName = "";
         for (Map.Entry<String, Socket> entry : entrySet) {
             String key = entry.getKey();
             Socket socket = entry.getValue();
             if (socket == this.clientSocket) {
                 currentName = key;
             }
-        }
+        }*/
         for (Map.Entry<String, Socket> entry : entrySet) {
             String key = entry.getKey();
             Socket socket = entry.getValue();
@@ -92,14 +94,14 @@ public class ClientHandler implements Runnable {
 
     private void privateChat(String name, String msg) throws IOException {
         Set<Map.Entry<String, Socket>> entrySet = SOCKET_MAP.entrySet();
-        String currentName = "";
+        /*String currentName = "";
         for (Map.Entry<String, Socket> entry : entrySet) {
             String key = entry.getKey();
             Socket socket = entry.getValue();
             if (socket == this.clientSocket) {
                 currentName = key;
             }
-        }
+        }*/
         Socket socket = SOCKET_MAP.get(name);
         if (socket != null) {
             this.sentMessage(socket, currentName + ":" + msg);
