@@ -53,9 +53,14 @@ public class TextArray {
     //5.数组截取
     //[start, end)
     // A {1,3,5,7,9} ->(A,1,3) > {3,5}
-    /*public static int[] arraySub(int[] data, int start, int end) {
-
-    }*/
+    public static int[] arraySub(int[] data, int start, int end) {
+        int length = end - start;
+        int[] tmp = new int[length];
+        for (int i = 0; i < length; i++) {
+            tmp[i] = data[i + start];
+        }
+        return tmp;
+    }
 
     //6.数组打印
     public static void printArray(int[] data) {
@@ -66,8 +71,18 @@ public class TextArray {
 
     //7.数组反转
     // 比如：[1,2,3,4] => [4,3,2,1]
-    public static void printReversal(int[] data) {
-
+    public static int[] printReversal(int[] data) {
+        /*int[] tmp = new int[data.length];
+        for (int i = 0; i < data.length; i++) {
+            tmp[i] = data[data.length - 1 - i];
+        }
+        return tmp;*/
+        for (int i = 0;i < data.length/2;i++){
+            int tmp = data[i];
+            data[i] = data[data.length - 1 - i];
+            data[data.length - 1 - i] = tmp;
+        }
+        return data;
     }
 
     public static void main(String[] args) {
@@ -79,8 +94,11 @@ public class TextArray {
         System.out.println("max data:" + maxData);
         System.out.println("min data:" + minData);
         System.out.println("sum data:" + sumData);*/
-        System.out.println("data + data1:");
-        printArray(arrayJoin(data, data1));
+        /*System.out.println("data + data1:");
+        printArray(arrayJoin(data, data1));*/
+        /*System.out.println("截取data从3到6:");
+        printArray(arraySub(data,3,6));*/
+        printArray(printReversal(data));
     }
 }
 
