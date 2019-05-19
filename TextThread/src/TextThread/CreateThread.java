@@ -1,4 +1,4 @@
-package CreateThread;
+package TextThread;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -38,7 +38,7 @@ class MyThread2 implements Runnable {
 
 //创建线程 3：implements Callable，在new的FutureTask对象中传入实现Callable的类对象
 //在new的Thread对象中传入FutureTask对象
-class MyThread3 implements Callable<String>{
+class MyThread3 implements Callable<String> {
     private String name;
 
     public MyThread3(String name) {
@@ -47,12 +47,13 @@ class MyThread3 implements Callable<String>{
 
     @Override
     public String call() throws Exception {
-        for (int i = 0;i<3;i++){
-            System.out.println(name+"i:"+i);
+        for (int i = 0; i < 3; i++) {
+            System.out.println(name + "i:" + i);
         }
         return name;
     }
 }
+
 public class CreateThread {
     public static void MyThread1() {
         MyThread1 myThread1 = new MyThread1("Java-Thread-1");
@@ -94,7 +95,8 @@ public class CreateThread {
         //get方法是阻塞操作
         System.out.println(futureTask.get());
     }
+
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        MyThread3();
+        MyThread2();
     }
 }
