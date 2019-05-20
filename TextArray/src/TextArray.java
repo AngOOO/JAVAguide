@@ -68,6 +68,11 @@ public class TextArray {
             System.out.print(data[i] + "、");
         }
     }
+    public static void printArray(char[] data) {
+        for (int i = 0; i < data.length; i++) {
+            System.out.print(data[i] + "、");
+        }
+    }
 
     //7.数组反转
     // 比如：[1,2,3,4] => [4,3,2,1]
@@ -88,6 +93,7 @@ public class TextArray {
     public static void main(String[] args) {
         int[] data = {1, 6, 4235, 245, 235, 2335, 542};
         int[] data1 = {2, 4, 65, 76, 7};
+        char[] data2 = {'a','g','y','f'};
         /*int maxData = arrayMaxElement(data);
         int minData = arrayMinElement(data);
         int sumData = arrayElementSum(data);
@@ -98,7 +104,15 @@ public class TextArray {
         printArray(arrayJoin(data, data1));*/
         /*System.out.println("截取data从3到6:");
         printArray(arraySub(data,3,6));*/
-        printArray(printReversal(data));
+        //printArray(printReversal(data));
+        /*java.util.Arrays.sort(data);//内部使用的是双路快排
+        java.util.Arrays.sort(data2);
+        printArray(data);
+        printArray(data2);*/
+        /*System.arraycopy(data1,2,data,2,3);
+        printArray(data);*/
+        int[] data3 = java.util.Arrays.copyOf(data1,10);
+        printArray(data3);
     }
 }
 
