@@ -3,12 +3,22 @@ package StackText.Impl;
 import StackText.Stack;
 
 public class LinkStack<T> implements Stack<T> {
-    private class Note{
+    private class Note {
         private T t;
         private Note next;
     }
+
+    private Note head;
+
     @Override
     public boolean push(T t) {
+        Note newNode = new Note();
+        if (newNode.next == null) {
+            head = newNode;
+            newNode.t = t;
+        } else {
+
+        }
         return false;
     }
 

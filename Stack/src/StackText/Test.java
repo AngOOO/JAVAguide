@@ -2,7 +2,7 @@ package StackText;
 
 import StackText.Impl.ArrayStack;
 
-public class Text {
+public class Test {
     public static void main(String[] args) {
         ArrayStack<Integer> stack = new ArrayStack<>(5);
         stack.push(999);
