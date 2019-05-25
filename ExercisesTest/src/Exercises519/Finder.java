@@ -8,11 +8,6 @@ public class Finder {
     }
 
     public static void main(String[] args) {
-        int x;
-        int y;
-        x = 5 >> 2;
-        y = x >>> 2;
-        System.out.println(y);
-        HashMap
+
     }
 }
