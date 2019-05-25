@@ -1,4 +1,4 @@
-package Exercisws521;
+package Exercises521;
 
 import java.util.Scanner;
 

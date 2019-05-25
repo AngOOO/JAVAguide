@@ -29,23 +29,54 @@ public class TextCirculation {
             return (fibonacci(num - 1) + fibonacci(num - 2));
         }
     }
+
     // 4.编程题：
     // 打印出所有的 "水仙花数 "，所谓 "水仙花数 "是指一个三位数，
     // 其各位数字立方和等于该数本身。例如：153是一个 "水仙花数 "，
     // 因为153=1的三次方＋5的三次方＋3的三次方。
-    public static void printDaffodil(){
-
+    public static void printDaffodil() {
+        int a;
+        int b;
+        int c;
+        for (int i = 1; i < 1000; i++) {
+            c = i / 100;
+            b = (i / 10) % 10;
+            a = i % 10;
+            if (a * a * a + b * b * b + c * c * c == i) {
+                System.out.print(i + "、");
+            }
+        }
     }
 
-    // 5.(附加题-算法)
+    // 5.
     // 一个数如果恰好等于它的因子之和，这个数就称为 "完数 "。
     // 例如6=1＋2＋3.编程 找出1000以内的所有完数。
+    public static void printWanNumber() {
+        int i;
+        int a;
+        int b;
+        for (i = 1; i < 1000; i++) {
+            int sum = 0;
+            for (a = 0; a <= i; a++) {
+                for (b = 0; b <= i; b++) {
+                    if (a * b == i) {
+                        sum += b;
+                    }
+                }
+            }
+            if (sum == i) {
+                System.out.print(i + "、");
+            }
+        }
+    }
 
     public static void main(String[] args) {
         //printMultiplicationTable();
         //System.out.println("20!=" + factorial(20));
-        for (int i = 0; i < 5; i++) {
+        /*for (int i = 0; i < 5; i++) {
             System.out.print(fibonacci(i) + "、");
-        }
+        }*/
+        //printDaffodil();
+        printWanNumber();
     }
 }

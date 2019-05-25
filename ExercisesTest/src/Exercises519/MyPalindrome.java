@@ -1,4 +1,4 @@
-package Exercisws519;
+package Exercises519;
 
 import java.util.Scanner;
 

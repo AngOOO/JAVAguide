@@ -1,4 +1,4 @@
-package Exercisws520;
+package Exercises520;
 
 public class Bottle {
 }
