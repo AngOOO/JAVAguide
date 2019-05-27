@@ -11,14 +11,24 @@ public class TwoStackToQueue {
     }
 
     public int pop() {
+        popStack2();
+        pushStack1();
+        return stack2.pop();
+    }
+    private int popStack2(){
         if(stack1.isEmpty()){
-            return -1;
+            throw new RuntimeException();
         }else{
             for(int i = 0;i < stack1.size();i++){
                 stack2.push(stack1.pop());
             }
         }
         return stack2.pop();
+    }
+    private void pushStack1(){
+        for (int i = 0;i < stack2.size();i++){
+            stack1.push(stack2.pop());
+        }
     }
 
     public static void main(String[] args) {

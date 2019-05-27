@@ -4,27 +4,33 @@ import java.util.Scanner;
 
 public class FindCount {
     static int[] num = null;
-    static int maxSize = 0;
-    public static void main(String[] args){
+    static int n = 0;
+    static int count = 0;
+
+    public static void main(String[] args) {
         //输入n为数组容量
         //分别将物品重量放入数组
         Scanner scanner = new Scanner(System.in);
-        maxSize = scanner.nextInt();
-        num = new int[maxSize];
-        for(int i = 0;i < maxSize;i++){
+        n = scanner.nextInt();
+        num = new int[n+1];
+        for (int i = 1; i <= n; i++) {
             num[i] = scanner.nextInt();
         }
-        //分别将各个物品累计相加
-        count(40,maxSize);
+        //计算成功次数
+        count(40, n);
+        System.out.println(count);
     }
-    private static void count(int capacity,int size){
-        if(capacity == 0){
+
+    private static void count(int capacity, int n) {
+        if (capacity == 0) {//恰好所取物品重量和等于40
+            ++count;
             return;
-        }else if(capacity < 0 && size < 1){
-            return;
-        }else{
-            count(capacity-num[size],size-1);
-            count(capacity,size-1);
         }
+        if (capacity < 0 || (capacity > 0 && n < 1)) {
+            //剩余物品为负数或个数小于一个不满足情况
+            return;
+        }
+        count(capacity - num[n], n - 1);
+        count(capacity, n - 1);
     }
 }
