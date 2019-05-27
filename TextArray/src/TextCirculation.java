@@ -55,10 +55,10 @@ public class TextCirculation {
         int i;
         int a;
         int b;
-        for (i = 1; i < 1000; i++) {
+        for (i = 1; i <= 1000; i++) {
             int sum = 0;
-            for (a = 0; a <= i; a++) {
-                for (b = 0; b <= i; b++) {
+            for (a = 1; a <= i; a++) {
+                for (b = 1; b < i; b++) {
                     if (a * b == i) {
                         sum += b;
                     }
