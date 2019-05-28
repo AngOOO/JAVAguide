@@ -24,7 +24,7 @@ public class SearchTree<E extends Comparable<E>> implements BinTree<E> {
         size++;
     }
     private void add(Node node,E e){
-        if (e.equals(root.data)){
+        if (e.compareTo(root.data) == 0){
             return;
         }else if (e.compareTo(node.data) < 0 && node.left == null){
             Node newNode = new Node(e);
@@ -42,7 +42,21 @@ public class SearchTree<E extends Comparable<E>> implements BinTree<E> {
 
     @Override
     public boolean contain(E e) {
-        return false;
+        if (e.compareTo(root.data) == 0){
+            return true;
+        }
+        return contain(root,e);
+    }
+    private boolean contain(Node node,E e){
+        if (node == null){
+            return false;
+        }
+        if (e.compareTo(node.data) == 0){
+            return true;
+        }else if (e.compareTo(node.data) < 0){
+            return contain(node.left,e);
+        }
+        return contain(node.right,e);
     }
 
     @Override
