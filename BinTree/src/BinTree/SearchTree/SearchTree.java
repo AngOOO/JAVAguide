@@ -2,8 +2,11 @@ package BinTree.SearchTree;
 
 import BinTree.BinTree;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class SearchTree<E extends Comparable<E>> implements BinTree<E> {
-    private class Node{
+    private class Node {
         E data;
         Node right;
         Node left;
@@ -12,10 +15,29 @@ public class SearchTree<E extends Comparable<E>> implements BinTree<E> {
             this.data = data;
         }
     }
+
     private Node root;
     private int size;
+
     @Override
     public void add(E e) {
+        root = add(root, e);
+        size++;
+    }
+
+    private Node add(Node node, E e) {
+        if (node == null) {
+            Node newNode = new Node(e);
+            return newNode;
+        }
+        if (e.compareTo(node.data) > 0) {
+            node.right = add(node.right, e);
+        } else if (e.compareTo(node.data) < 0) {
+            node.left = add(node.left, e);
+        }
+        return node;
+    }
+    /*public void add(E e) {
         if (root == null){
             Node newNode = new Node(e);
             root = newNode;
@@ -38,25 +60,26 @@ public class SearchTree<E extends Comparable<E>> implements BinTree<E> {
         }else if (e.compareTo(node.data) > 0){
             add(node.right,e);
         }
-    }
+    }*/
 
     @Override
     public boolean contain(E e) {
-        if (e.compareTo(root.data) == 0){
+        if (e.compareTo(root.data) == 0) {
             return true;
         }
-        return contain(root,e);
+        return contain(root, e);
     }
-    private boolean contain(Node node,E e){
-        if (node == null){
+
+    private boolean contain(Node node, E e) {
+        if (node == null) {
             return false;
         }
-        if (e.compareTo(node.data) == 0){
+        if (e.compareTo(node.data) == 0) {
             return true;
-        }else if (e.compareTo(node.data) < 0){
-            return contain(node.left,e);
+        } else if (e.compareTo(node.data) < 0) {
+            return contain(node.left, e);
         }
-        return contain(node.right,e);
+        return contain(node.right, e);
     }
 
     @Override
@@ -86,17 +109,63 @@ public class SearchTree<E extends Comparable<E>> implements BinTree<E> {
 
     @Override
     public void preOrder() {
+        preOrder(root);
+    }
 
+    private void preOrder(Node node) {
+        if (node == null) {
+            return;
+        }
+        System.out.println(node.data);
+        preOrder(node.left);
+        preOrder(node.right);
     }
 
     @Override
     public void inOrder() {
+        inOrder(root);
+    }
 
+    private void inOrder(Node node) {
+        if (node == null) {
+            return;
+        }
+        inOrder(node.left);
+        System.out.println(node.data);
+        inOrder(node.right);
     }
 
     @Override
     public void postOrder() {
+        postOrder(root);
+    }
 
+    private void postOrder(Node node) {
+        if (node == null) {
+            return;
+        }
+        postOrder(node.left);
+        postOrder(node.right);
+        System.out.println(node.data);
+    }
+
+    @Override
+    public void levelOrder() {
+        Queue<Node> queue = new LinkedList<>();
+        if (root == null) {
+            return;
+        }
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            Node tmp = queue.poll();
+            System.out.println(tmp.data);
+            if (tmp.left != null){
+                queue.add(tmp.left);
+            }
+            if (tmp.right != null){
+                queue.add(tmp.right);
+            }
+        }
     }
 
     @Override

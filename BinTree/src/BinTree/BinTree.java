@@ -11,5 +11,6 @@ public interface BinTree<E> {
     void preOrder();
     void inOrder();
     void postOrder();
+    void levelOrder();
     int getSize();
 }

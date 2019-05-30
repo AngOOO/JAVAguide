@@ -11,7 +11,6 @@ public class Test {
         searchTree.add(2);
         searchTree.add(10);
         searchTree.add(6);
-        System.out.println(searchTree.contain(3));
-        System.out.println(searchTree.contain(6));
+        searchTree.levelOrder();
     }
 }
