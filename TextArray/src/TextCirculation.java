@@ -73,10 +73,10 @@ public class TextCirculation {
     public static void main(String[] args) {
         //printMultiplicationTable();
         //System.out.println("20!=" + factorial(20));
-        /*for (int i = 0; i < 5; i++) {
-            System.out.print(fibonacci(i) + "、");
-        }*/
+        for (int i = 0; i < 3; i++) {
+        }
         //printDaffodil();
-        printWanNumber();
+        //printWanNumber();
+        System.out.print(fibonacci(3) + "、");
     }
 }

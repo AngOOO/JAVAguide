@@ -1,0 +1,33 @@
+package BinTree.OJExer;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class maxDepth {
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode(int x) {
+            val = x;
+        }
+    }
+
+    class Solution {
+        public int maxDepth(TreeNode root) {
+            if (root == null){
+                return 0;
+            }
+            int left = maxDepth(root.left);
+            int right = maxDepth(root.right);
+            int result = 0;
+            if (left > right){
+                result = left+1;
+            }else {
+                result = right+1;
+            }
+            return result;
+        }
+    }
+}
