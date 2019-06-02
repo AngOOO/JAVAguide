@@ -5,9 +5,9 @@ public interface BinTree<E> {
     boolean contain(E e);
     E getMax();
     E getMin();
-    boolean remove(E e);
-    boolean removeMax();
-    boolean removeMin();
+    void remove(E e);
+    void removeMax();
+    void removeMin();
     void preOrder();
     void inOrder();
     void postOrder();

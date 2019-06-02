@@ -84,27 +84,99 @@ public class SearchTree<E extends Comparable<E>> implements BinTree<E> {
 
     @Override
     public E getMax() {
-        return null;
+        //没有右子树的节点
+        if (root == null){
+            System.err.println("此树为空");
+        }
+        Node node = getMaxNode(root);
+        return node.data;
+    }
+    private Node getMaxNode(Node node){
+        if (node.right == null){
+            return node;
+        }
+        return getMaxNode(node.right);
     }
 
     @Override
     public E getMin() {
-        return null;
+        //没有左子树的节点
+        if (root == null){
+            System.err.println("该树为空");
+        }
+        Node node = getMinNode(root);
+        return node.data;
+    }
+    private Node getMinNode(Node node){
+        if (node.left == null){
+            return node;
+        }
+        return getMinNode(node.left);
     }
 
     @Override
-    public boolean remove(E e) {
-        return false;
+    public void remove(E e) {
+        //找到该节点的前驱或后继节点，替换之
+        root = removeNode(root,e);
+    }
+    private Node removeNode(Node node,E e){
+        if (node == null){
+            return null;
+        }
+        if (e.compareTo(node.data) < 0){
+            node.left = removeNode(node.left,e);
+        } else if (e.compareTo(node.data) > 0){
+            node.right = removeNode(node.right,e);
+        }else {
+            if (node.left != null && node.right == null){
+                Node tmp = node.left;
+                node.left = null;
+                size--;
+                return tmp;
+            }else if (node.left == null && node.right != null){
+                Node tmp = node.right;
+                node.right = null;
+                size--;
+                return tmp;
+            }else if (node.left != null && node.right != null){
+                Node successor = getMinNode(node.right);
+                successor.left = node.left;
+                successor.right = removeMinNode(node.right);
+                node.left = node.right = null;
+                size--;
+                return successor;
+            }
+        }
+        return node;
     }
 
     @Override
-    public boolean removeMax() {
-        return false;
+    public void removeMax() {
+        root = removeMaxNode(root);
     }
-
+    private Node removeMaxNode(Node node){
+        if (node.right == null){
+            Node tmp = node.left;
+            node.left = null;
+            size--;
+            return tmp;
+        }
+        node.right = removeMaxNode(node.right);
+        return node;
+    }
     @Override
-    public boolean removeMin() {
-        return false;
+    public void removeMin() {
+        root = removeMinNode(root);
+    }
+    private Node removeMinNode(Node node){
+        if (node.left == null){
+            Node tmp = node.right;
+            node.right = null;
+            size--;
+            return tmp;
+        }
+        node.left = removeMinNode(node.left);
+        return node;
     }
 
     @Override

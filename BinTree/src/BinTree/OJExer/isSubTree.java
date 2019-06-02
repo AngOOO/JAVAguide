@@ -17,7 +17,7 @@ public class isSubTree {
        if (isSameTree(s,t)){
            return true;
        }
-       if (s!=null && t!=null){
+       if (s!=null){
            if (isSubtree(s.left,t)){
                return true;
            }else if (isSubtree(s.right,t)){

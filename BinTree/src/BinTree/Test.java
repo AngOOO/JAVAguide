@@ -7,10 +7,11 @@ public class Test {
         SearchTree<Integer> searchTree = new SearchTree<>();
         searchTree.add(5);
         searchTree.add(8);
+        searchTree.add(9);
+        searchTree.add(1);
         searchTree.add(3);
-        searchTree.add(2);
-        searchTree.add(10);
-        searchTree.add(6);
-        searchTree.levelOrder();
+        searchTree.add(7);
+        searchTree.add(4);
+        searchTree.postOrder();
     }
 }
