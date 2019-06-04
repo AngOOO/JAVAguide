@@ -12,6 +12,7 @@ public class Test {
         searchTree.add(3);
         searchTree.add(7);
         searchTree.add(4);
-        searchTree.postOrder();
+        searchTree.remove(4);
+        searchTree.levelOrder();
     }
 }

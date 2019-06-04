@@ -2,6 +2,7 @@ package BinTree.SearchTree;
 
 import BinTree.BinTree;
 
+import javax.xml.bind.Element;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -140,11 +141,13 @@ public class SearchTree<E extends Comparable<E>> implements BinTree<E> {
                 return tmp;
             }else if (node.left != null && node.right != null){
                 Node successor = getMinNode(node.right);
-                successor.left = node.left;
                 successor.right = removeMinNode(node.right);
+                successor.left = node.left;
                 node.left = node.right = null;
                 size--;
                 return successor;
+            }else {
+                node = null;
             }
         }
         return node;
@@ -160,9 +163,10 @@ public class SearchTree<E extends Comparable<E>> implements BinTree<E> {
             node.left = null;
             size--;
             return tmp;
+        }else {
+            node.right = removeMaxNode(node.right);
+            return node;
         }
-        node.right = removeMaxNode(node.right);
-        return node;
     }
     @Override
     public void removeMin() {
@@ -174,9 +178,10 @@ public class SearchTree<E extends Comparable<E>> implements BinTree<E> {
             node.right = null;
             size--;
             return tmp;
+        }else {
+            node.left = removeMinNode(node.left);
+            return node;
         }
-        node.left = removeMinNode(node.left);
-        return node;
     }
 
     @Override
