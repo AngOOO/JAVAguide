@@ -1,5 +1,6 @@
 package BinTree;
 
+import BinTree.Heap.Heap;
 import BinTree.SearchTree.SearchTree;
 
 public class Test {
@@ -14,5 +15,6 @@ public class Test {
         searchTree.add(4);
         searchTree.remove(4);
         searchTree.levelOrder();
+        Heap<Integer> a = new Heap<>();
     }
 }
