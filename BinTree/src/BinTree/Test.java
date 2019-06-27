@@ -5,16 +5,12 @@ import BinTree.SearchTree.SearchTree;
 
 public class Test {
     public static void main(String[] args) {
-        SearchTree<Integer> searchTree = new SearchTree<>();
-        searchTree.add(5);
-        searchTree.add(8);
-        searchTree.add(9);
-        searchTree.add(1);
-        searchTree.add(3);
-        searchTree.add(7);
-        searchTree.add(4);
-        searchTree.remove(4);
-        searchTree.levelOrder();
-        Heap<Integer> a = new Heap<>();
+        Heap<Integer> heap = new Heap<>();
+        int[] data = new int[]{4,6,8,42,2,545,57,84,542,90};
+        for (int i = 0;i < data.length;i++){
+            heap.add(data[i]);
+        }
+        heap.extractMax();
+        System.out.println(heap.toString());
     }
 }

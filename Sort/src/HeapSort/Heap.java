@@ -1,5 +1,4 @@
-package BinTree.Heap;
-
+package HeapSort;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -14,32 +13,25 @@ public class Heap<E> {
         this(InitialCapacity, null);
     }
 
-    public Heap(int initial) {
-        this(initial, null);
+    public Heap(int size) {
+        this(size, null);
     }
 
-    public Heap(int initial, Comparator<E> comparator) {
-        this.data = (E[]) new Object[initial];
+    public Heap(int size, Comparator<E> comparator) {
+        data = (E[]) new Object[size];
     }
 
     public void add(E e) {
-        if (size == data.length) {
+        if (data.length == size) {
             grow();
         }
         data[size++] = e;
         siftUp(size - 1);
     }
 
-    public E findMax() {
-        if (isEmpty()) {
-            throw new IllegalArgumentException("数组为空！");
-        }
-        return data[0];
-    }
-
     public E extractMax() {
         E result = data[0];
-        swap(size-1, 0);
+        swap(0, size - 1);
         data[--size] = null;
         siftDown(0);
         return result;
@@ -54,10 +46,6 @@ public class Heap<E> {
 
     public int getSize() {
         return size;
-    }
-
-    public boolean isEmpty() {
-        return size == 0;
     }
 
     public int leftChild(int index) {
@@ -81,16 +69,15 @@ public class Heap<E> {
 
     private void grow() {
         int oldSize = data.length;
-        int newSize = oldSize + (oldSize > 64 ? oldSize : oldSize >> 1);
+        int newSize = oldSize + (oldSize < 64 ? oldSize : oldSize >> 1);
         if (data.length > Integer.MAX_VALUE - 8) {
-            throw new IllegalArgumentException("数组太大！");
+            throw new IllegalArgumentException("数组太大了！");
         }
         data = Arrays.copyOf(data, newSize);
     }
 
     private void siftUp(int index) {
-        while (index > 0 &&
-                compare(data[index], data[parent(index)]) > 0) {
+        while (index > 0 && compare(data[index], data[parent(index)]) > 0) {
             swap(index, parent(index));
             index = parent(index);
         }
@@ -104,8 +91,8 @@ public class Heap<E> {
                     j++;
                 }
             }
-            if (compare(data[index], data[j]) < 0) {
-                swap(index, j);
+            if (compare(data[j], data[index]) > 0) {
+                swap(j, index);
             }
             index = j;
         }
