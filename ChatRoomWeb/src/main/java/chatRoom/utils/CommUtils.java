@@ -8,7 +8,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class CommUtils {
-    //用于序列化密码
+    //用于序列化
     private static final Gson gson = new GsonBuilder().create();
 
     private CommUtils() {
@@ -30,7 +30,10 @@ public class CommUtils {
         return gson.toJson(o);
     }
 
-    public static  Object jsonToObject(String jsonStr,Class objClass){
+    public static Object jsonToObject(String jsonStr,Class objClass){
         return gson.fromJson(jsonStr,objClass);
+    }
+    public static boolean strIsNull(String str){
+        return str == null || str.equals("");
     }
 }

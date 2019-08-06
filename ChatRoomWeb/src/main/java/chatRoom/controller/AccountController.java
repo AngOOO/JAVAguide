@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(urlPatterns = "/deRegister")
+@WebServlet(urlPatterns = "/doRegister")
 public class AccountController extends HttpServlet {
     private AccountService accountService = new AccountService();
 
@@ -20,11 +20,24 @@ public class AccountController extends HttpServlet {
         String password = req.getParameter("password");
         resp.setContentType("text/html;charset=utf8");
         PrintWriter writer = resp.getWriter();
-        //if (accountService.us)
+        if (accountService.userRegister(userName, password)) {
+            //用户注册成功
+            //弹框提示，返回登陆界面
+            writer.println("<script>\n" +
+                    "    alert(\"注册成功\");\n" +
+                    "    window.location.href = \"/index.html\";\n" +
+                    "</script>");
+        } else {
+            //弹框提示失败，保留原页面
+            writer.println("<script>\n" +
+                    "    alert(\"注册失败\");\n" +
+                    "    window.location.href = \"/registration.html\";\n" +
+                    "</script>");
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        doGet(req, resp);
     }
 }

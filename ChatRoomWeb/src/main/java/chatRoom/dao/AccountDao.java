@@ -54,7 +54,14 @@ public class AccountDao extends BaseDao {
     }
     //将数据表信息封装到user类中
     public User getUserInfo(ResultSet resultSet){
-
-        return null;
+        User user = new User();
+        try {
+            user.setId(resultSet.getInt("id"));
+            user.setUserName(resultSet.getString("username"));
+            user.setPassWord(resultSet.getString("password"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 }
