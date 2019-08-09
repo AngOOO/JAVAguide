@@ -1,6 +1,6 @@
 package chatRoom.dao;
 
-import chatRoom.utils.CommUtils;
+import chatRoom.utils.Utils;
 import com.alibaba.druid.pool.DruidDataSourceFactory;
 import com.alibaba.druid.pool.DruidPooledConnection;
 
@@ -16,7 +16,7 @@ public class BaseDao {
 
     //加载资源文件
     static {
-        Properties properties = CommUtils.loadProperties("datasource.properties");
+        Properties properties = Utils.loadProperties("datasource.properties");
         try {
             dataSource = DruidDataSourceFactory.createDataSource(properties);
         } catch (Exception e) {

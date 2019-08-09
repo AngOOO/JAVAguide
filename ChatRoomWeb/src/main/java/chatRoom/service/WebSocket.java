@@ -2,7 +2,7 @@ package chatRoom.service;
 
 import chatRoom.entity.MessageFromClient;
 import chatRoom.entity.MessageToClient;
-import chatRoom.utils.CommUtils;
+import chatRoom.utils.Utils;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
@@ -41,7 +41,7 @@ public class WebSocket {
         messageToClient.setContent(userName+"上线了！");
         messageToClient.setNames(names);
         //发送消息
-        String jsonStr = CommUtils.objectToJson(messageToClient);
+        String jsonStr = Utils.objectToJson(messageToClient);
         for (WebSocket webSocket : clients){
             webSocket.sendMsg(jsonStr);
         }
@@ -54,7 +54,7 @@ public class WebSocket {
     public void onMessage(String msg){
         //将msg转换为MessageFromClient
         MessageFromClient messageFromClient = (MessageFromClient)
-                CommUtils.jsonToObject(msg,MessageFromClient.class);
+                Utils.jsonToObject(msg,MessageFromClient.class);
         if (messageFromClient.getType().equals("1")){
             //群聊
             groupChat(messageFromClient);
@@ -69,7 +69,7 @@ public class WebSocket {
         mtc.setContent(content);
         mtc.setNames(names);
         for (WebSocket webSocket : clients){
-            webSocket.sendMsg(CommUtils.objectToJson(mtc));
+            webSocket.sendMsg(Utils.objectToJson(mtc));
         }
     }
     private void privateChat(MessageFromClient mfc){
@@ -84,7 +84,7 @@ public class WebSocket {
                 MessageToClient mtc = new MessageToClient();
                 mtc.setContent(userName,content);
                 mtc.setNames(names);
-                webSocket.sendMsg(CommUtils.objectToJson(mtc));
+                webSocket.sendMsg(Utils.objectToJson(mtc));
             }
         }
     }
@@ -104,7 +104,7 @@ public class WebSocket {
         MessageToClient messageToClient = new MessageToClient();
         messageToClient.setContent(userName+"下线了！");
         messageToClient.setNames(names);
-        String jsonStr = CommUtils.objectToJson(messageToClient);
+        String jsonStr = Utils.objectToJson(messageToClient);
         for (WebSocket webSocket:clients){
             webSocket.sendMsg(jsonStr);
         }
