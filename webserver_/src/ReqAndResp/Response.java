@@ -1,4 +1,4 @@
-package R;
+package ReqAndResp;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import static util.Utils.CRLF;
 import static util.Utils.createHeadInfo;
 
 /**
- * 分析相应信息
+ * 分析响应信息
  */
 public class Response {
     private BufferedWriter bw;

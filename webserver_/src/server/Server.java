@@ -18,16 +18,19 @@ public class Server {
 
     public static void main(String[] args) {
         Server server = new Server();
-
+        server.start();
     }
     //启动服务
     public void start(){
         try {
             serverSocket = new ServerSocket(8888);
             isRunning = true;
+            receive();
         } catch (IOException e) {
             System.err.println("服务器启动失败...");
             e.printStackTrace();
+        }finally {
+            stop();
         }
     }
     //停止服务
@@ -42,6 +45,15 @@ public class Server {
                 System.err.println("客户端错误...");
                 e.printStackTrace();
             }
+        }
+    }
+    public void stop(){
+        isRunning = false;
+        try {
+            this.serverSocket.close();
+            System.out.println("服务器关闭...");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
