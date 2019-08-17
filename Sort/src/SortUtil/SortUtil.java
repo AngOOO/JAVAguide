@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class SortUtil {
     public static int[] makeRandom(int scope){
-        int n = 100;
+        int n = 50;
         Random random = new Random();
         int data[] = new int[n];
         for (int i = 0;i < n;i++){
