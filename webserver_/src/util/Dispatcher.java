@@ -1,6 +1,5 @@
 package util;
 
-
 import ReqAndResp.Request;
 import ReqAndResp.Response;
 import server.Servlet;
@@ -9,6 +8,8 @@ import web.WebApp;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
+
+import static util.Utils.readHtml;
 
 /**
  * 创建多线程启动客户端
@@ -38,11 +39,10 @@ public class Dispatcher implements Runnable {
     public void run() {
         try{
             if (request.getUrl()==null||request.getUrl().equals("")){
-                InputStream in = Thread.currentThread().
-                        getContextClassLoader().getResourceAsStream("index.html");
-                response.print((new String(in.readAllBytes())));
+                InputStream in = Thread.currentThread()
+                        .getContextClassLoader().getResourceAsStream("index.html");
+                response.print(readHtml(in,"index.html"));
                 response.pushToBro(200);
-                in.close();
                 return;
             }
             Servlet servlet = WebApp.getServletFromUrl(request.getUrl());
@@ -50,12 +50,10 @@ public class Dispatcher implements Runnable {
                 servlet.service(request,response);
                 response.pushToBro(200);
             }else {
-                //错误
                 InputStream in = Thread.currentThread()
                         .getContextClassLoader().getResourceAsStream("error.html");
-                response.print((new String(in.readAllBytes())));
+                response.print(readHtml(in,"error.html"));
                 response.pushToBro(404);
-                in.close();
             }
         } catch (IOException e) {
             response.println("正在努力中...");

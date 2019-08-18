@@ -1,9 +1,9 @@
 package server;
 
-
 import util.Dispatcher;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -33,20 +33,26 @@ public class Server {
             stop();
         }
     }
-    //停止服务
+    //接受连接处理
     public void receive(){
         while (isRunning){
             try{
                 Socket client = serverSocket.accept();
                 System.out.println("一个客户端建立了连接...");
-                //多线程处理
-                new Thread(new Dispatcher(client)).start();
+                //多线程处理，获取请求协议
+                //new Thread(new Dispatcher(client)).start();
+                InputStream is =client.getInputStream();
+                byte[] datas = new byte[1024*1024];
+                int len = is.read(datas);
+                String requestInfo = new String(datas,0,len);
+                System.out.println(requestInfo);
             } catch (IOException e) {
                 System.err.println("客户端错误...");
                 e.printStackTrace();
             }
         }
     }
+    //停止服务
     public void stop(){
         isRunning = false;
         try {

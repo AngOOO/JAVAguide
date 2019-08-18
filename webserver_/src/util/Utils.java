@@ -1,5 +1,8 @@
 package util;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 
@@ -105,5 +108,19 @@ public class Utils {
         headInfo.append("Content-length:").append(length).append(CRLF);
         headInfo.append(CRLF);
         return headInfo;
+    }
+    public static String readHtml(InputStream in,String html) throws IOException {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        byte[] msg = new byte[10];
+        int len = -1;
+        while ((len=in.read(msg))!=-1){
+            out.write(msg,0,len);
+            if (len < msg.length){
+                break;
+            }
+        }
+        in.close();
+        out.close();
+        return new String(out.toByteArray());
     }
 }

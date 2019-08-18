@@ -11,12 +11,14 @@ import static util.Utils.createHeadInfo;
 
 /**
  * 分析响应信息
+ * 使用输出流将内容输出
  */
 public class Response {
+    //用于输出内容
     private BufferedWriter bw;
     // 正文
     private StringBuilder content;
-    // 协议头(状态行与请求头 回车) 信息
+    // 协议头(状态行与请求头 回车)
     private StringBuilder headInfo;
     // 正文字节数
     private int length;
@@ -42,7 +44,7 @@ public class Response {
         bw = new BufferedWriter(new OutputStreamWriter(on));
     }
 
-    //添加正文内容
+    //动态添加正文内容
     public Response print(String info) {
         content.append(info);
         length += info.getBytes().length;

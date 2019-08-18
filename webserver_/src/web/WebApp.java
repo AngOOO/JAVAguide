@@ -9,7 +9,7 @@ import javax.xml.parsers.SAXParserFactory;
 import java.io.InputStream;
 
 /**
- * 解析xml文件
+ * 解析配置文件
  */
 public class WebApp {
     private static WebContext webContext;

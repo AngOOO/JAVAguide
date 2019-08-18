@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *解析xml处理器
+ * 处理器
  */
 public class WebHandler extends DefaultHandler {
     private List<Ser> entities = new ArrayList<>();
@@ -73,7 +73,7 @@ public class WebHandler extends DefaultHandler {
             if ("servlet".equals(qName)) {
                 entities.add(ser);
             } else if ("servlet-ser".equals(qName)) {
-                mappings.add(serMapping);
+                mappings.add(serMapping );
             }
         }
         tag = null;
