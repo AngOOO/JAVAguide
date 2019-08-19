@@ -12,11 +12,11 @@ import java.util.Map;
 
 import static util.Utils.createHeadInfo;
 import static util.Utils.parseReqInfo;
+import static util.Utils.readHtml;
 
 public class UtilsTest {
     @Test
     public void testParseReqInfo() {
-        Server server = new Server();
         ServerSocket clientServer = null;
         String requestInfo = null;
         String method = null;
@@ -45,8 +45,20 @@ public class UtilsTest {
     public void testCreateHeadInfo(){
         StringBuilder headInfo = new StringBuilder();
         int length = 0;
-        int code = 200;
+        int code = 404;
         headInfo = createHeadInfo(headInfo,length,code);
         System.out.println(headInfo.toString());
+    }
+    @Test
+    public void testReadHtml(){
+        try {
+            InputStream in = Thread.currentThread()
+                    .getContextClassLoader()
+                    .getResourceAsStream("index.html");
+            String str = readHtml(in,"index.html");
+            System.out.println(str);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

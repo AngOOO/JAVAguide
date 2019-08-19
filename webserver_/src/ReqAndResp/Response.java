@@ -64,12 +64,18 @@ public class Response {
         }
         //拼接后的响应信息
         headInfo = createHeadInfo(headInfo, length, code);
+
         try {
             bw.append(headInfo);
             bw.append(content);
-            bw.flush();
         } catch (IOException e) {
             e.printStackTrace();
+        }finally {
+            try {
+                bw.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

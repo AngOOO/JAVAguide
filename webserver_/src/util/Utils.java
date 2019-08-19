@@ -102,13 +102,14 @@ public class Utils {
                 break;
         }
         //2、构建响应头
-        headInfo.append("Date:").append(new Date()).append(CRLF);
-        headInfo.append("Server:").append("websever Server/0.0.1;charset=GBK").append(CRLF);
+        headInfo.append("Server:").append("websever Server/0.0.1;charset=utf-8").append(CRLF);
         headInfo.append("Content-type:text/html").append(CRLF);
         headInfo.append("Content-length:").append(length).append(CRLF);
+        headInfo.append("Date:").append(new Date()).append(CRLF);
         headInfo.append(CRLF);
         return headInfo;
     }
+    //读取html
     public static String readHtml(InputStream in,String html) throws IOException {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         byte[] msg = new byte[10];

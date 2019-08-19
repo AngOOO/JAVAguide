@@ -40,12 +40,7 @@ public class Server {
                 Socket client = serverSocket.accept();
                 System.out.println("一个客户端建立了连接...");
                 //多线程处理，获取请求协议
-                //new Thread(new Dispatcher(client)).start();
-                InputStream is =client.getInputStream();
-                byte[] datas = new byte[1024*1024];
-                int len = is.read(datas);
-                String requestInfo = new String(datas,0,len);
-                System.out.println(requestInfo);
+                new Thread(new Dispatcher(client)).start();
             } catch (IOException e) {
                 System.err.println("客户端错误...");
                 e.printStackTrace();
