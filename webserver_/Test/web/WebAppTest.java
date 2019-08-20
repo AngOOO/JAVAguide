@@ -1,13 +1,11 @@
 package web;
-
-
 import org.junit.Test;
-import server.Servlet;
+import util.WebContext;
 
 public class WebAppTest {
     @Test
     public void testGetServletFromUrl() {
-        Servlet servlet = WebApp.getServletFromUrl("login");
-        System.out.println(servlet);
+        WebContext webContext = WebApp.parseText("web.xml");
+        webContext.getClz("/login");
     }
 }

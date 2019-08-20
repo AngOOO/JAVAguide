@@ -22,14 +22,6 @@ public class WebHandler extends DefaultHandler {
     private String tag;
     private boolean isMapping = false;
 
-    public List<Ser> getEntities() {
-        return entities;
-    }
-
-    public List<SerMapping> getMappings() {
-        return mappings;
-    }
-
     //开始解析文档
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
@@ -38,19 +30,19 @@ public class WebHandler extends DefaultHandler {
             if ("servlet".equals(tag)) {
                 ser = new Ser();
                 isMapping = false;
-            } else if ("servlet-ser".equals(tag)) {
+            } else if ("servlet-mapping".equals(tag)) {
                 serMapping = new SerMapping();
                 isMapping = true;
             }
         }
     }
-
     //解析内容
+
     @Override
     public void characters(char[] chars, int start, int length) throws SAXException {
         String contents = new String(chars, start, length).trim();
         if (tag != null) {
-            if (isMapping) {//操作servlet-ser
+            if (isMapping) {//操作servlet-mapping
                 if ("servlet-name".equals(tag)) {
                     serMapping.setName(contents);
                 } else if ("url-pattern".equals(tag)) {
@@ -65,17 +57,24 @@ public class WebHandler extends DefaultHandler {
             }
         }
     }
-
     //解析文档结束
+
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
         if (qName != null) {
             if ("servlet".equals(qName)) {
                 entities.add(ser);
-            } else if ("servlet-ser".equals(qName)) {
+            } else if ("servlet-mapping".equals(qName)) {
                 mappings.add(serMapping );
             }
         }
         tag = null;
+    }
+    public List<Ser> getEntities() {
+        return entities;
+    }
+
+    public List<SerMapping> getMappings() {
+        return mappings;
     }
 }

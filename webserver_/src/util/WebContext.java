@@ -34,11 +34,14 @@ public class WebContext {
                 PNMap.put(pattern, m.getName());
             }
         }
+        System.out.println(NCMap);
+        System.out.println(PNMap);
     }
 
     //通过URL找到对应class
     public String getClz(String pattern) {
         String name = PNMap.get(pattern);
+        System.out.println(name);
         return NCMap.get(name);
     }
 }

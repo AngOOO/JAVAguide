@@ -22,15 +22,15 @@ public class WebApp {
         String className = webContext.getClz("/"+url);
         Class clz;
         try{
-            System.out.println("url:"+url+" className:"+className);
             clz = Class.forName(className);
-            return (Servlet) clz.newInstance();
+            System.out.println("url:"+url+" className:"+className);
+            return (Servlet) clz.getConstructor().newInstance();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
-    private static WebContext parseText(String text){
+    public static WebContext parseText(String text){
         WebContext webContext = null;
         try {
             //SAX解析
