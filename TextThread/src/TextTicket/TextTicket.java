@@ -2,6 +2,8 @@ package TextTicket;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 class MyThread extends Thread {
     private int tickets = 10;
@@ -9,7 +11,9 @@ class MyThread extends Thread {
     @Override
     public void run() {
         while (this.tickets > 0) {
-            System.out.println("剩余票数：" + --this.tickets);
+            synchronized (this) {
+                System.out.println(Thread.currentThread().getName() + "剩余票数：" + this.tickets--);
+            }
         }
     }
 }
@@ -34,6 +38,23 @@ class MyCallable implements Callable<String> {
             System.out.println("剩余票数：" + --this.ticket);
         }
         return "票卖光了！";
+    }
+}
+
+class MyLock implements Runnable {
+    private int ticket = 10;
+    private Lock lock = new ReentrantLock();
+
+    @Override
+    public void run() {
+        try {
+            lock.lock();
+            while (this.ticket > 0) {
+                System.out.println("剩余票数：" + --this.ticket);
+            }
+        } finally {
+            lock.unlock();
+        }
     }
 }
 
@@ -63,6 +84,7 @@ public class TextTicket {
     }
 
     public static void TextMyCallable() {
+        //只有一个线程在卖票
         FutureTask<String> futureTask = new FutureTask<>(new MyCallable());
         new Thread(futureTask).start();
         new Thread(futureTask).start();
@@ -70,10 +92,18 @@ public class TextTicket {
         new Thread(futureTask).start();
         new Thread(futureTask).start();
     }
+    public static void TestMyLock(){
+        MyLock myLock = new MyLock();
+        new Thread(myLock).start();
+        new Thread(myLock).start();
+        new Thread(myLock).start();
+        new Thread(myLock).start();
+    }
 
     public static void main(String[] args) {
         //TextMyThread();
-        TextMyRunnable();
+        //TextMyRunnable();
         //TextMyCallable();
+        TestMyLock();
     }
 }

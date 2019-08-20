@@ -17,7 +17,7 @@ class B implements Runnable{
         System.out.println("B线程的优先级："+Thread.currentThread().getPriority());
     }
 }
-public class ThreadPrioority {
+public class ThreadPriority {
     public static void main(String[] args) {
         Thread thread = new Thread(new A());
         thread.setPriority(Thread.MAX_PRIORITY);
