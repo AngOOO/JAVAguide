@@ -1,5 +1,7 @@
 package util;
 
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,81 +11,6 @@ import java.util.*;
 public class Utils {
     public static final String CRLF = "\r\n";
     public static final String BLANK =" ";
-
-    //分解请求协议
-    public static void parseReqInfo(String reqInfo, String method, String url,
-                                    Map<String, List<String>> paraMap) {
-        //请求方法：从开始到第一个“/”
-        method = reqInfo
-                .substring(0, reqInfo.indexOf("/"))
-                .toLowerCase().trim();
-        System.out.println(method);
-
-        //请求url：第一个“/”到HTTP/...?后为请求参数
-        // 1、获取开始位置(/后)
-        int urlStart = reqInfo.indexOf("/") + 1;
-        // 2、获取结束位置(HTTP/位置)
-        int urlEnd = reqInfo.indexOf("HTTP/");
-        // 3、提取url
-        url = reqInfo.substring(urlStart, urlEnd).trim();
-        // 4、获取请求参数开始位置(?位置)
-        int queryStart = url.indexOf("?");
-        // 5、若存在的请求参数，将url与请求参数分离
-        String queryStr = null;
-        if (queryStart >= 0) {
-            String[] urlData = url.split("\\?");
-            url = urlData[0];
-            //get请求参数：
-            queryStr = urlData[1];
-        }
-        System.out.println(url);
-
-        //post请求参数(存在于请求体中)：
-        if ("post".equals(method)) {
-            String tmp = reqInfo.substring(reqInfo.lastIndexOf(CRLF)).trim();
-            if (queryStr == null) {
-                queryStr = tmp;
-            } else {
-                queryStr += "&" + tmp;
-            }
-        }
-        queryStr = null == queryStr ? "" : queryStr;
-        System.out.println(queryStr);
-        //将请求参数存入map
-        paraMap = convertMap(queryStr);
-        System.out.println(paraMap);
-    }
-
-    //将请求参数存入Map
-    private static Map<String, List<String>> convertMap(String queryStr) {
-        Map<String, List<String>> paraMap = new HashMap<>();
-        // 1、以“&”分割字符串
-        String[] qStr1 = queryStr.split("&");
-        // 2、以“=”分割字符串
-        for (String qStr : qStr1) {
-            String[] qStr2 = qStr.split("=");
-            qStr2 = Arrays.copyOf(qStr2, 2);
-            String key = qStr2[0];
-            String value = decode(qStr2[1], "utf-8");
-            if (!paraMap.containsKey(key)){
-                paraMap.put(key,new ArrayList<String>());
-            }
-            paraMap.get(key).add(value);
-        }
-        return paraMap;
-    }
-
-    //处理中文
-    private static String decode(String str, String enc) {
-        if (str != null) {
-            try {
-                return java.net.URLDecoder.decode(str, enc);
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }
 
     //拼接响应协议
     public static StringBuilder createHeadInfo(StringBuilder headInfo,int length,int code){
@@ -123,5 +50,29 @@ public class Utils {
         in.close();
         out.close();
         return new String(out.toByteArray());
+    }
+    //利用SAX解析配置文件
+    public static WebContext parseText(String text){
+        WebContext webContext = null;
+        try {
+            //SAX解析
+            // 1、获取解析工厂
+            SAXParserFactory factory = SAXParserFactory.newInstance();
+            // 2、从解析工厂获取解析器
+            SAXParser parser = factory.newSAXParser();
+            // 3、解析处理器
+            // 4、加载文档注册处理器
+            WebHandler handler = new WebHandler();
+            // 5、解析
+            InputStream in = Thread.currentThread().getContextClassLoader()
+                    .getResourceAsStream(text);
+            parser.parse(in,handler);
+            // 获取数据
+            webContext = new WebContext(handler.getEntities(), handler.getMappings());
+        } catch (Exception e) {
+            System.err.println("解析配置文件失败...");
+            e.printStackTrace();
+        }
+        return webContext;
     }
 }

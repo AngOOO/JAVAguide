@@ -4,16 +4,18 @@ import ReqAndResp.Request;
 import ReqAndResp.Response;
 import server.Servlet;
 
+import java.io.IOException;
+
 public class RegisterServlet implements Servlet {
     @Override
-    public void service(Request req, Response resp) {
+    public void service(Request req, Response resp) throws IOException {
         resp.print("<html>\n" +
                 "\t<head>\n" +
-                "\t\t<meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">\t\n" +
-                "\t\t<title>register</title>\n" +
+                "\t\t<meta charset=\"UTF-8\">\n" +
+                "\t\t<title>注册</title>\n" +
                 "\t</head>\n" +
                 "\t<body>\n" +
-                "\t\t<h1>注册页面</h1>\t\n" +
+                "注册成功" + req.getParaVal("uname") +
                 "\t</body>\n" +
                 "</html>");
     }

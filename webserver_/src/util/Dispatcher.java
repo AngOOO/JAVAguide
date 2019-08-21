@@ -12,7 +12,7 @@ import java.net.Socket;
 import static util.Utils.readHtml;
 
 /**
- * 创建多线程启动客户端
+ * 创建多线程完成请求响应
  */
 public class Dispatcher implements Runnable {
     private Socket client;
@@ -21,17 +21,14 @@ public class Dispatcher implements Runnable {
     public Dispatcher(Socket client){
         this.client = client;
         try{
-            //获取请求协议
             request = new Request(client);
-            //获取响应协议
             response = new Response(client);
         } catch (IOException e) {
             e.printStackTrace();
-        }finally {
             try {
                 client.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (IOException e1) {
+                e1.printStackTrace();
             }
         }
     }
@@ -57,7 +54,11 @@ public class Dispatcher implements Runnable {
             }
         } catch (IOException e) {
             response.println("正在努力中...");
-            response.pushToBro(500);
+            try {
+                response.pushToBro(500);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             e.printStackTrace();
         }finally {
             try {

@@ -29,7 +29,7 @@ public class Response {
         length = 0;
     }
 
-    //通过输出流获取客户端信息
+    //通过输出流输出响应内容
     public Response(Socket client) {
         this();
         try {
@@ -58,24 +58,14 @@ public class Response {
     }
 
     //推送响应信息
-    public void pushToBro(int code) {
+    public void pushToBro(int code) throws IOException {
         if (headInfo == null) {
             code = 505;
         }
         //拼接后的响应信息
         headInfo = createHeadInfo(headInfo, length, code);
-
-        try {
-            bw.append(headInfo);
-            bw.append(content);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }finally {
-            try {
-                bw.flush();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        bw.append(headInfo);
+        bw.append(content);
+        bw.flush();
     }
 }

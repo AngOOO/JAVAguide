@@ -2,14 +2,13 @@ package web;
 
 import server.Servlet;
 import util.WebContext;
-import util.WebHandler;
 
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-import java.io.InputStream;
+import static util.Utils.parseText;
 
 /**
  * 解析配置文件
+ * 根据配置文件动态读取类名
+ * 进行反射获取具体的Servlet来处理业务
  */
 public class WebApp {
     private static WebContext webContext;
@@ -29,28 +28,5 @@ public class WebApp {
             e.printStackTrace();
         }
         return null;
-    }
-    public static WebContext parseText(String text){
-        WebContext webContext = null;
-        try {
-            //SAX解析
-            // 1、获取解析工厂
-            SAXParserFactory factory = SAXParserFactory.newInstance();
-            // 2、从解析工厂获取解析器
-            SAXParser parser = factory.newSAXParser();
-            // 3、解析处理器
-            // 4、加载文档注册处理器
-            WebHandler handler = new WebHandler();
-            // 5、解析
-            InputStream in = Thread.currentThread().getContextClassLoader()
-                    .getResourceAsStream(text);
-            parser.parse(in,handler);
-            // 获取数据
-            webContext = new WebContext(handler.getEntities(), handler.getMappings());
-        } catch (Exception e) {
-            System.err.println("解析配置文件失败...");
-            e.printStackTrace();
-        }
-        return webContext;
     }
 }

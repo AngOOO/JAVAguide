@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import static util.Utils.readHtml;
+
 public class ResponseTest {
     @Test
     public void TestResponse(){
@@ -16,14 +18,11 @@ public class ResponseTest {
             Socket client = clientServer.accept();
             Request request = new Request(client);
             Response response = new Response(client);
-            response.print("<html>\n" +
-                    "\t<head>\n" +
-                    "\t\t<title>首页</title>\n" +
-                    "\t</head>\n" +
-                    "\t<body>\n" +
-                    "\t\t<h1>欢迎进入</h1>\n" +
-                    "\t</body>\n" +
-                    "</html>");
+            InputStream in = Thread.currentThread()
+                    .getContextClassLoader()
+                    .getResourceAsStream("index.html");
+            String str = readHtml(in,"index.html");
+            response.print(str);
             response.pushToBro(200);
         } catch (IOException e) {
             e.printStackTrace();
