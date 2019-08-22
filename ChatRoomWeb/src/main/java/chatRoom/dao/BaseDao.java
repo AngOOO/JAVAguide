@@ -12,9 +12,10 @@ import java.sql.Statement;
 import java.util.Properties;
 
 public class BaseDao {
+    //通过dataSource操作数据库
     private static DataSource dataSource;
 
-    //加载资源文件
+    //加载配置文件
     static {
         Properties properties = Utils.loadProperties("datasource.properties");
         try {
