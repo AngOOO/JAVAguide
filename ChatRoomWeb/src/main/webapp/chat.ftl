@@ -86,7 +86,7 @@
                         + '<input type="checkbox" class="styled" id="' + key + '" value="' + key + '" checked>'
                         + '<label for="' + key + '"></label>'
                         + '</div>'
-                        + '<div class="liLeft"><img src="assets/img/robot2.jpg"/></div>'
+                        + '<div class="liLeft"><img src="assets/img/photo.jpg"/></div>'
                         + '<div class="liRight">'
                         + '<span class="intername">' + value + '</span>'
                         + '</div>'
@@ -169,7 +169,7 @@
     function setMessageInnerHTML(innerHTML) {
             var msg = '<li>'
                     + '<div class="nesHead">'
-                    + '<img src="assets/img/robot.jpg">'
+                    + '<img src="assets/img/indexup.jpg">'
                     + ' </div>'
                     + '<div class="news">'
                     + innerHTML
