@@ -176,7 +176,6 @@
                     + '</div>'
                     + '</li>';
         $("#message").append(msg);
-
     }
 </script>
 
