@@ -23,7 +23,7 @@ public class WebApp {
         try{
             clz = Class.forName(className);
             System.out.println("url:"+url+" className:"+className);
-            return (Servlet) clz.newInstance();
+            return (Servlet) clz.getConstructor().newInstance();
         } catch (Exception e) {
             e.printStackTrace();
         }
